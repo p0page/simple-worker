@@ -1,0 +1,18 @@
+{
+  "name": "worker-wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/worker.min.js",
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^1.3.3",
+    "rollup-plugin-filesize": "^6.0.1",
+    "rollup-plugin-typescript2": "^0.19.3",
+    "rollup-plugin-uglify": "^6.0.2",
+    "typescript": "^3.3.3333"
+  }
+}
