@@ -5,12 +5,13 @@ import { join } from 'path'
 
 export default {
   input: join(__dirname, './src/main.ts'),
-  output: {
-    file: 'dist/worker.min.js',
-    format: 'iife',
-    name: '$worker',
-    sourcemap: true
-  },
+  output: [
+    {
+      file: 'dist/simpleWorker.iife.js',
+      format: 'iife',
+      name: 'SimpleWorker',
+    }
+  ],
   plugins: [
     typescript(),
     uglify(),
