@@ -1,6 +1,6 @@
 import typescript from 'rollup-plugin-typescript2'
-import { uglify } from 'rollup-plugin-uglify'
 import filesize from 'rollup-plugin-filesize'
+import { terser } from "rollup-plugin-terser";
 import { join } from 'path'
 
 export default {
@@ -10,11 +10,15 @@ export default {
       file: 'dist/simpleWorker.iife.js',
       format: 'iife',
       name: 'SimpleWorker',
+    },
+    {
+      file: 'dist/simpleWorker.js',
+      format: 'es'
     }
   ],
   plugins: [
     typescript(),
-    uglify(),
+    terser(),
     filesize()
   ]
 }
