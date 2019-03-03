@@ -1,6 +1,7 @@
 import * as _ from './utils'
 import { stringify } from './stringify'
 import { createWorker } from './createWorker'
+import { process } from './process'
 
 class SimpleWorker {
 
@@ -8,8 +9,12 @@ class SimpleWorker {
 
   private objURL: string
 
+  private id: number = 1
+
+  private subs: Object = {}
+
   constructor (fn: Function) {
-    if (!('Worker' in window))  {
+    if (!('Worker' in window)) {
       console.error('This browser does not support Worker.')
       return
     }
@@ -25,19 +30,18 @@ class SimpleWorker {
     const { worker, objURL } = createWorker(fnString)
     this.worker = worker
     this.objURL = objURL
+    process(this.worker, this.subs)
   }
 
   run (...args: Array<any>): Promise<any> {
     const worker = this.worker
     return new Promise((resolve, reject) => {
-      worker.onmessage = event => {
-        resolve(event.data)
-      }
-      worker.onerror = event => {
-        reject(event.error)
-      }
-
-      worker.postMessage(args)
+      const id = this.id++
+      this.subs[id] = [resolve, reject]
+      worker.postMessage({
+        args,
+        id
+      })
     })
   }
 
