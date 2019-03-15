@@ -37,7 +37,7 @@ class SimpleWorker {
     const worker = this.worker
     return new Promise((resolve, reject) => {
       const id = this.id++
-      this.subs[id] = [resolve, reject]
+      this.subs[id] = {resolve, reject}
       worker.postMessage({
         args,
         id

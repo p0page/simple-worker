@@ -12,7 +12,7 @@ export default {
       name: 'SimpleWorker',
     },
     {
-      file: 'dist/simpleWorker.js',
+      file: 'dist/simpleWorker.es.js',
       format: 'es'
     }
   ],

@@ -3,13 +3,13 @@ export function process (worker: Worker, subs: Object) {
     const data = event.data
     const id = data && data.id
     if (id && subs[id]) {
-      subs[id][0](data.result)
+      subs[id]['resolve'](data.result)
       delete subs[id]
     }
   }
   worker.onerror = event => {
     Object.keys(subs).forEach(key => {
-      subs[key][1](event)
+      subs[key]['reject'](event)
       delete subs[key]
     })
   }
